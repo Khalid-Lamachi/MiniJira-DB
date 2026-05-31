@@ -16,15 +16,23 @@ CREATE TABLE utilisateurs (
 CREATE TABLE equipes (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nom VARCHAR(100) NOT NULL,
-    objectif TEXT
+    objectif TEXT,
+    isArchived TINYINT(1) DEFAULT 0,
+    idCreateur INT NOT NULL,
+    dateCreation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_equipe_createur
+        FOREIGN KEY (idCreateur)
+        REFERENCES utilisateurs(id)
 );
 
 CREATE TABLE appartenance_equipe (
     id_equipe INT,
     id_utilisateur INT,
     PRIMARY KEY(id_equipe, id_utilisateur),
-    FOREIGN KEY(id_equipe) REFERENCES equipes(id),
-    FOREIGN KEY(id_utilisateur) REFERENCES utilisateurs(id)
+    FOREIGN KEY(id_equipe) REFERENCES equipes(id) ON DELETE CASCADE,
+    FOREIGN KEY(id_utilisateur) REFERENCES utilisateurs(id) ON DELETE CASCADE
 );
 
 select * from utilisateurs;
+select * from equipes;
+select * from appartenance_equipe;
