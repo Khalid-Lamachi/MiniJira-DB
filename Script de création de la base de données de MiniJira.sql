@@ -33,6 +33,24 @@ CREATE TABLE appartenance_equipe (
     FOREIGN KEY(id_utilisateur) REFERENCES utilisateurs(id) ON DELETE CASCADE
 );
 
+CREATE TABLE projects (
+    id_project INT AUTO_INCREMENT PRIMARY KEY,
+    nom_projet VARCHAR(100) NOT NULL,
+    cle VARCHAR(20) NOT NULL UNIQUE,
+    etats TEXT,
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    idCreateur INT NOT NULL,
+    idTeam INT,
+    idSM INT,
+    idPO INT,
+    FOREIGN KEY (idCreateur) REFERENCES utilisateurs(id),
+    FOREIGN KEY (idTeam) REFERENCES equipes(id),
+    FOREIGN KEY (idSM) REFERENCES utilisateurs(id),
+    FOREIGN KEY (idPO) REFERENCES utilisateurs(id)
+);
+
 select * from utilisateurs;
 select * from equipes;
 select * from appartenance_equipe;
+select * from projects;
+
