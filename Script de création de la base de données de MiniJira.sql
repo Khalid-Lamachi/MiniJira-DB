@@ -40,6 +40,7 @@ CREATE TABLE projects (
     etats TEXT,
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     idCreateur INT NOT NULL,
+    isArchived TINYINT(1) NOT NULL DEFAULT 0,
     idTeam INT,
     idSM INT,
     idPO INT,
@@ -48,6 +49,8 @@ CREATE TABLE projects (
     FOREIGN KEY (idSM) REFERENCES utilisateurs(id),
     FOREIGN KEY (idPO) REFERENCES utilisateurs(id)
 );
+
+
 
 select * from utilisateurs;
 select * from equipes;
