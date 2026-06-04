@@ -44,11 +44,13 @@ CREATE TABLE projects (
     idTeam INT,
     idSM INT,
     idPO INT,
-    FOREIGN KEY (idCreateur) REFERENCES utilisateurs(id),
+    FOREIGN KEY (idCreateur) REFERENCES utilisateurs(id) ON DELETE CASCADE,
     FOREIGN KEY (idTeam) REFERENCES equipes(id),
     FOREIGN KEY (idSM) REFERENCES utilisateurs(id),
     FOREIGN KEY (idPO) REFERENCES utilisateurs(id)
 );
+
+
 
 CREATE TABLE sprints (
     id_sprint INT AUTO_INCREMENT PRIMARY KEY,
