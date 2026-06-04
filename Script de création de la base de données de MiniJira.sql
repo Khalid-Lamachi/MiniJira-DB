@@ -50,10 +50,45 @@ CREATE TABLE projects (
     FOREIGN KEY (idPO) REFERENCES utilisateurs(id)
 );
 
+CREATE TABLE sprints (
+    id_sprint INT AUTO_INCREMENT PRIMARY KEY,
+    nom_sprint VARCHAR(100) NOT NULL,
+    objectif TEXT,
+    date_debut DATE,
+    date_fin DATE,
+    statut VARCHAR(20) DEFAULT 'a venir',
+    id_project INT NOT NULL,
+    FOREIGN KEY (id_project) REFERENCES projects(id_project) ON DELETE CASCADE
+);
+
+CREATE TABLE tasks (
+    id_task INT AUTO_INCREMENT PRIMARY KEY,
+    titre VARCHAR(150) NOT NULL,
+    description TEXT,
+    statut VARCHAR(50),
+    priorite VARCHAR(20),
+    story_points INT DEFAULT 0,
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_project INT NOT NULL,
+    id_sprint INT,
+    id_assignee INT,
+    type_tache VARCHAR(50) DEFAULT 'Feature',
+    FOREIGN KEY (id_project) REFERENCES projects(id_project) ON DELETE CASCADE,
+    FOREIGN KEY (id_sprint) REFERENCES sprints(id_sprint) ON DELETE SET NULL,
+    FOREIGN KEY (id_assignee) REFERENCES utilisateurs(id) ON DELETE SET NULL
+);
 
 
 select * from utilisateurs;
 select * from equipes;
 select * from appartenance_equipe;
 select * from projects;
+
+
+
+
+
+
+
+
 
