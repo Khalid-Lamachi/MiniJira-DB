@@ -50,7 +50,18 @@ CREATE TABLE projects (
     FOREIGN KEY (idPO) REFERENCES utilisateurs(id)
 );
 
+-- Changement 
 
+ALTER TABLE projects
+DROP FOREIGN KEY projects_ibfk_1;
+
+ALTER TABLE projects
+ADD CONSTRAINT projects_ibfk_1
+FOREIGN KEY (idCreateur)
+REFERENCES utilisateurs(id)
+ON DELETE CASCADE;
+
+-- Fin changement
 
 CREATE TABLE sprints (
     id_sprint INT AUTO_INCREMENT PRIMARY KEY,
