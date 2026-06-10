@@ -70,6 +70,7 @@ CREATE TABLE sprints (
     date_debut DATE,
     date_fin DATE,
     statut VARCHAR(20) DEFAULT 'a venir',
+    capacite INT,
     id_project INT NOT NULL,
     FOREIGN KEY (id_project) REFERENCES projects(id_project) ON DELETE CASCADE
 );
@@ -81,14 +82,30 @@ CREATE TABLE tasks (
     statut VARCHAR(50),
     priorite VARCHAR(20),
     story_points INT DEFAULT 0,
+    position INT NOT NULL DEFAULT 0,
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_project INT NOT NULL,
     id_sprint INT,
     id_assignee INT,
+    id_parent INT,
     type_tache VARCHAR(50) DEFAULT 'Feature',
     FOREIGN KEY (id_project) REFERENCES projects(id_project) ON DELETE CASCADE,
     FOREIGN KEY (id_sprint) REFERENCES sprints(id_sprint) ON DELETE SET NULL,
-    FOREIGN KEY (id_assignee) REFERENCES utilisateurs(id) ON DELETE SET NULL
+    FOREIGN KEY (id_assignee) REFERENCES utilisateurs(id) ON DELETE SET NULL,
+    -- Hiérarchie Epic -> Story -> Subtask (auto-référence). Supprimer un parent
+    -- détache ses enfants plutôt que de les supprimer en cascade.
+    FOREIGN KEY (id_parent) REFERENCES tasks(id_task) ON DELETE SET NULL
+);
+
+-- Commentaires attachés à une tâche (issue).
+CREATE TABLE commentaires (
+    id_commentaire INT AUTO_INCREMENT PRIMARY KEY,
+    id_task INT NOT NULL,
+    id_auteur INT,
+    contenu TEXT NOT NULL,
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_task) REFERENCES tasks(id_task) ON DELETE CASCADE,
+    FOREIGN KEY (id_auteur) REFERENCES utilisateurs(id) ON DELETE SET NULL
 );
 
 
