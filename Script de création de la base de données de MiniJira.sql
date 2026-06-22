@@ -89,6 +89,9 @@ CREATE TABLE tasks (
     id_assignee INT,
     id_parent INT,
     type_tache VARCHAR(50) DEFAULT 'Feature',
+    -- Lien du livrable (dépôt GitHub) déposé par le développeur lorsqu'il
+    -- termine une sous-tâche. Null tant qu'aucun livrable n'est fourni.
+    lien_livrable VARCHAR(500),
     FOREIGN KEY (id_project) REFERENCES projects(id_project) ON DELETE CASCADE,
     FOREIGN KEY (id_sprint) REFERENCES sprints(id_sprint) ON DELETE SET NULL,
     FOREIGN KEY (id_assignee) REFERENCES utilisateurs(id) ON DELETE SET NULL,
@@ -108,6 +111,20 @@ CREATE TABLE commentaires (
     FOREIGN KEY (id_auteur) REFERENCES utilisateurs(id) ON DELETE SET NULL
 );
 
+
+CREATE TABLE task_activities (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_task INT NOT NULL,
+    id_project INT NOT NULL,
+    id_user INT NOT NULL,
+    action_type VARCHAR(100) NOT NULL,
+    old_value VARCHAR(500),
+    new_value VARCHAR(500),
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_task) REFERENCES tasks(id_task) ON DELETE CASCADE,
+    FOREIGN KEY (id_project) REFERENCES projects(id_project) ON DELETE CASCADE,
+    FOREIGN KEY (id_user) REFERENCES utilisateurs(id) ON DELETE CASCADE
+);
 
 select * from utilisateurs;
 select * from equipes;
