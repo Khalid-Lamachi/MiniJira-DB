@@ -1,0 +1,2 @@
+ALTER TABLE tasks
+ADD COLUMN po_validation VARCHAR(20) DEFAULT 'NONE';

@@ -92,6 +92,8 @@ CREATE TABLE tasks (
     -- Lien du livrable (dépôt GitHub) déposé par le développeur lorsqu'il
     -- termine une sous-tâche. Null tant qu'aucun livrable n'est fourni.
     lien_livrable VARCHAR(500),
+    -- Validation visuelle par le PO ('NONE', 'APPROVED', 'REJECTED')
+    po_validation VARCHAR(20) DEFAULT 'NONE',
     FOREIGN KEY (id_project) REFERENCES projects(id_project) ON DELETE CASCADE,
     FOREIGN KEY (id_sprint) REFERENCES sprints(id_sprint) ON DELETE SET NULL,
     FOREIGN KEY (id_assignee) REFERENCES utilisateurs(id) ON DELETE SET NULL,
