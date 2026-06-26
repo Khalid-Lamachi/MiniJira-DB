@@ -82,6 +82,8 @@ CREATE TABLE tasks (
     statut VARCHAR(50),
     priorite VARCHAR(20),
     story_points INT DEFAULT 0,
+    estimated_hours INT DEFAULT 0,
+    logged_hours INT DEFAULT 0,
     position INT NOT NULL DEFAULT 0,
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_project INT NOT NULL,
